@@ -1,0 +1,137 @@
+
+h2 {
+    text-align: left;
+    color: black;
+    font-weight: bold;
+    margin: 20px 0 20px 0;
+    font-family: 'Oswald', sans-serif;
+    font-size: 30px;
+}
+.game-info {
+    text-align: left;
+}
+
+/*.information > ol {
+    list-style-type: decimal;
+}*/
+
+.game-img {
+    box-shadow: 0 0 1rem rgba(0, 0, 0, .15) !important;
+}
+
+
+
+
+/*@media (min-width: 1100px) {
+
+    .game-info {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        align-items: center;
+        margin: 40px 40px 40px 40px;
+    }
+    .game-img {
+        margin: 20px 20px 20px 20px;
+        width: 25%;
+        height: auto;
+
+    }
+    .information {
+        width: 40%;
+    }
+
+}*/
+
+@media (min-width: 992px) {
+
+    .game-info {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        align-items: center;
+        margin: 40px 40px 40px 40px;
+    }
+    .game-img {
+        margin: 20px 20px 20px 20px;
+        width: 30%;
+        height: auto;
+
+    }
+    .information {
+        width: 45%;
+    }
+
+
+}
+
+@media (max-width: 991px) and (min-width: 768px) {
+
+    .game-info {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        align-items: center;
+        margin: 40px 40px 40px 40px;
+    }
+    .game-img {
+        width: 35%;
+        height: auto;
+
+    }
+    .information {
+        width: 50%;
+    }
+
+
+}
+
+@media (max-width: 767px) and (min-width: 576px) {
+
+    .game-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 100%;
+        align-items: center;
+    }
+
+    .game-img {
+        width: 100%;
+        height: auto;
+        order: -1;
+
+    }
+    .information {
+        width: 100%;
+        order: 1;
+    }
+
+}
+
+@media (max-width: 575px) {
+
+    .game-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 100%;
+        align-items: center;
+        padding: 10px 20px 10px 20px;
+
+    }
+
+    .game-img {
+        width: 100%;
+        height: auto;
+        order: -1;
+        margin: 20px 0 20px 0;
+
+    }
+    .information {
+        width: 100%;
+        order: 1;
+
+    }
+
+}

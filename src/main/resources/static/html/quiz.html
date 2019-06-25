@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Aplikacja Edukacyjna Quiz</title>
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../fontello-65bef979/css/fontello.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Oswald&amp;subset=latin-ext" rel="stylesheet">
+    <link rel="stylesheet" href="../css/quiz.css">
+    <script src="../js/menu.js"></script>
+    <script src="../js/quiz.js"></script>
+</head>
+<body>
+<header>
+    <div id="title">
+        <h1>Quiz Edukacyjny</h1>
+    </div>
+
+    <div id="fixed-nav">
+        <div class="nav-style">
+            <nav>
+                <ol>
+                    <li id="nav-menu-mobile"><a class="nav-text"  href="#"><i class="icon-menu" ></i></a></li>
+                    <li class="nav-option"><a class="nav-text" href="../index.html"><p>Strona Główna</p></a></li>
+                    <li class="nav-option"><a class="nav-text" href="quiz.html"><p>Quiz</p></a></li>
+                    <li class="nav-option"><a class="nav-text" href="classification.html"><p>Ranking</p></a></li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="banner">
+        <!--<img src="img/book-4126482_1280.jpg" height=auto width="100%"/>-->
+    </div>
+</header>
+<main>
+    <div class="container">
+        <div class="quiz-info">
+            <h2 id="quiz-title">Rozpocznij quiz.</h2>
+            <p id="player-points" class="cont-text">
+                    Punkty: 0
+            </p>
+            <p id="quest-points" class="cont-text">
+                    Punkty do  zdobycia: 0
+            </p>
+            <p id="quiz-time">Czas: 00:00</p>
+            <p id="question" class="cont-text"></p>
+
+        </div>
+        <div id="quiz-nick" class="quiz-info" >
+            <p id="player-name-text" class="cont-text">Podaj nick pod jakim będziesz brał udział w quizie.</p>
+            <label id="player-name-label" class="cont-text">
+                Nick:
+                <input autofocus id="player-name" type="text" >
+            </label>
+            <p id="player-name-warning">Nick musi składać się z przynajmniej 5 znaków!</p>
+            <button id="save-name" class="quiz-button">Zapisz</button>
+
+        </div>
+        <div class="quiz-main">
+            <div id="answerA" class="answer">
+                A:
+            </div>
+            <div id="answerB" class="answer">
+                B:
+            </div>
+            <div id="answerC" class="answer">
+                C:
+            </div>
+            <div id="answerD" class="answer">
+                D:
+            </div>
+        </div>
+
+
+        <button id="next" class="quiz-button">Następny etap</button>
+        <button id="replay" class="quiz-button">Spróbuj ponownie</button>
+        <button id="start" class="quiz-button"> START</button>
+
+
+
+    </div>
+</main>
+<footer>
+    <div>Wykonano przez Patryk Sieczka <p id="one"><575px </p> <p id="two"><767px </p> <p id="three"><991px </p>
+        <p id="four">>991px </p> <p id="five"> >1100px </p></div>
+    <div>2019</div>
+</footer>
+</body>
+</html>
