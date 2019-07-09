@@ -10,9 +10,13 @@ h2 {
     display: flex;
 }
 .quiz-main {
-    display: flex;
+    display: none;
     min-height: 300px;
 
+}
+
+#quiz-nick {
+    min-height: 300px;
 }
 
 .cont-text {

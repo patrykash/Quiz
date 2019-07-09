@@ -15,6 +15,7 @@ public class PlayerController {
 
     private PlayerService playerService;
 
+
     public PlayerController(PlayerService playerService) {
         this.playerService = playerService;
     }
@@ -25,6 +26,7 @@ public class PlayerController {
         System.out.println(player.getNickName());
         newPlayer.setNickName(player.getNickName());
         newPlayer.setPoints(player.getPoints());
+
         playerService.addPlayer(newPlayer);
         Map<String, String> result = new HashMap<>();
         result.put("result", "success");

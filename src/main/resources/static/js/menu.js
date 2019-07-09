@@ -1,8 +1,8 @@
 //funckcja odpowiedzialna za przyczepianie menu do góry strony
 function fixNav() {
-    var fixedNav = document.getElementById("fixed-nav");
-    var yScroll = window.scrollY;
-    var distanceTop;
+    const fixedNav = document.getElementById("fixed-nav");
+    let yScroll = window.scrollY;
+    let distanceTop;
     if (slide) {
          distanceTop = 70;
     } else {
@@ -25,10 +25,10 @@ function fixNav() {
 }
 
 //zmienna wykorzystywana w obu funkcjach pozwala na wysówanie menu domyślne ustawienie
-var slide = true;
+let slide = true;
 //odpowiada za wysowanie i zasowanie menu
 function popupMenu() {
-    var menuElements = document.getElementsByClassName("nav-option");
+    const menuElements = document.getElementsByClassName("nav-option");
 
     console.log("dziala");
     console.log(slide);

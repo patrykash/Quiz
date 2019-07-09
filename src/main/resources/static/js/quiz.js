@@ -2,7 +2,7 @@
 window.onload = init;
 function init() {
     //zajmuje się komunikacją z serwerem
-    class GetService {
+    const quizController = {
         //wysyla zapytanie o pobranie listy pytan
         getQuestions () {
             let getQuestion = new XMLHttpRequest();
@@ -17,85 +17,77 @@ function init() {
                     question.setQuestions(responseObject);
                     console.log(responseObject);
                 }
-                //questionAndAnswers.questions = responseObject;
-
             };
-
-        };
+        },
 
         //przesyła dane uzytkownika na serwer
         addPlayer () {
-            let getQuestion = new XMLHttpRequest();
-            getQuestion.open('POST', '/players/save', true);
-            getQuestion.setRequestHeader("Content-Type", "application/json");
-            getQuestion.send(JSON.stringify(playerInfo));
-            getQuestion.onload = function () {
-                if(getQuestion.status )
+            let addPlayer = new XMLHttpRequest();
+            addPlayer.open('POST', '/players/save', true);
+            addPlayer.setRequestHeader("Content-Type", "application/json");
+            addPlayer.send(JSON.stringify(playerInfo));
+            addPlayer.onload = function () {
+                if(addPlayer.status )
                 {
-                    console.log(JSON.parse(getQuestion.responseText)) ;
+                    console.log(JSON.parse(addPlayer.responseText)) ;
                 }
             };
-        };
+        },
+    };
 
-    }
+    quizController.getQuestions();
 
     //obsluguje pytania po pobraniu z serwera
-    class Question {
-        questions;
-        contents;
-        answers;
-        goodAnswer;
+    const question = {
 
-        //losuje pytanie
         randomQuestion() {
             let questionNumber = Math.floor(Math.random() * this.questions.length);
-            this.setQuestion(this.questions[questionNumber]);
+            this.setQuestionText(this.questions[questionNumber]);
+            console.log(this.questions[questionNumber]);
+            console.log(this.contents);
             this.updateQuestions(questionNumber);
-        };
+        },
 
-        setQuestion(drawnQuestion) {
+        setQuestionText(drawnQuestion) {
             this.contents = drawnQuestion.question;
             this.answers = [drawnQuestion.answerA, drawnQuestion.answerB, drawnQuestion.answerC, drawnQuestion.answerD];
             this.goodAnswer = drawnQuestion.goodAnswer;
-        }
-        //aktualzuje liste pytanusuwając to które było wylosowane
+        },
+
         updateQuestions(questionNumber) {
             this.questions.splice(questionNumber, 1);
-        };
+        },
 
         setQuestions(questions) {
             this.questions = questions;
         }
-
-
-
-    }
-
-    const getService = new GetService();
-    getService.getQuestions();
-    const question = new Question;
+    };
 
     const quizOptions = {
+
         startButton: document.getElementById("start"),
         replayButton: document.getElementById("replay"),
         nextButton: document.getElementById("next"),
+
         clickStart() {
             question.randomQuestion();
-            quizAnswer.setAnswers(question.answers);
-            quizAnswer.setQuestion(question.contents);
-            quizAnswer.addAnswersListener();
+            //quizAnswers.setAnswers(question.answers);
+            quizAnswers.addAnswersListener();
             quizInfo.setInfo();
-            let elements = [quizOptions.nextButton,quizAnswer.questionText, quizAnswer.answerButtons[0], quizAnswer.answerButtons[1],
-                quizAnswer.answerButtons[2], quizAnswer.answerButtons[3]];
+            //quizQuestion.setQuestionText(question.contents);
+            let elements = [quizOptions.nextButton,quizQuestion.questionField, quizAnswers.answerButtons[0], quizAnswers.answerButtons[1],
+                quizAnswers.answerButtons[2], quizAnswers.answerButtons[3]];
             requestAnimationFrame(function (timestamp) {
-                animations.hide(timestamp,timestamp,quizOptions.startButton, elements);
+                animations.hide(timestamp,timestamp,quizOptions.startButton, elements, true);
             });
         },
+
         clickNext() {
             question.randomQuestion();
+            quizInfo.setInfo();
             quizInfo.updateInfoValue();
-            let elements = [quizAnswer.answerButtons[0], quizAnswer.answerButtons[1],
-                quizAnswer.answerButtons[2], quizAnswer.answerButtons[3], quizAnswer.questionText];
+            let elements = [quizAnswers.answerButtons[0], quizAnswers.answerButtons[1],
+                quizAnswers.answerButtons[2], quizAnswers.answerButtons[3], quizQuestion.questionField];
             requestAnimationFrame(function (timestamp) {
                 animations.hide(timestamp, timestamp, elements[0]);
                 animations.hide(timestamp, timestamp, elements[1]);
@@ -103,18 +95,17 @@ function init() {
                 animations.hide(timestamp, timestamp, elements[3]);
                 animations.hide(timestamp, timestamp, elements[4], elements, true);
             });
-            quizAnswer.addAnswersListener();
-            quizInfo.setInfo();
+            quizAnswers.addAnswersListener();
             quizOptions.nextButton.removeEventListener("click", quizOptions.clickNext);
-
         },
+
         clickReplay() {
-            getService.getQuestions();
+            question.randomQuestion();
             quizInfo.resetInfo();
-            quizAnswer.resetAnswersText.bind(question);
-            question.randomQuestion.bind(question);
-            let elements = [quizAnswer.answerButtons[0], quizAnswer.answerButtons[1],
-                quizAnswer.answerButtons[2], quizAnswer.answerButtons[3], quizAnswer.questionText, quizOptions.nextButton];
+            quizInfo.setInfo();
+            quizAnswers.addAnswersListener();
+            let elements = [quizAnswers.answerButtons[0], quizAnswers.answerButtons[1],
+                quizAnswers.answerButtons[2], quizAnswers.answerButtons[3], quizQuestion.questionField, quizOptions.nextButton];
             requestAnimationFrame(function (timestamp) {
                 animations.hide(timestamp, timestamp, quizOptions.replayButton);
                 animations.hide(timestamp, timestamp, elements[0]);
@@ -123,26 +114,23 @@ function init() {
                 animations.hide(timestamp, timestamp, elements[3]);
                 animations.hide(timestamp, timestamp, elements[4], elements, true);
             });
-            quizAnswer.addAnswersListener();
-            quizInfo.setInfo();
         }
     };
 
     quizOptions.startButton.addEventListener("click", quizOptions.clickStart);
-    quizOptions.replayButton.addEventListener("click", quizOptions.clickReplay);
     const elementFunctions = {
-        //ukrywa elemnety odpowiedzialne za pobieranie nicku
         hide (element) {
             element.style.display = "none";
         },
 
-        //pokazuje elemnety odpowiedzialne za pobieranie nicku
-
         show (element) {
             element.style.display = "block";
+        },
+        showFlex (element) {
+            element.style.display = "flex";
         }
     };
-    //Wykorzystywany przy przesyłaniu danych po porazce lub wygranej w quizie
+
     const playerInfo = {
         nickName:  "Gracz",
         points: "0"
@@ -158,21 +146,26 @@ function init() {
                 });
             } else {
                elementFunctions.hide(element);
-                if ((quizInfo !== undefined) && (quizInfo === true)) {
-                    quizAnswer.setAnswers(question.answers);
-                    quizAnswer.setQuestion(question.contents);
-                    quizAnswer.resetAnswersStyle();
-
+                this.updateQuiz(quizInfo);
+                this.showElements(elements);
+            }
+        },
+        showElements(elements) {
+            if (elements !== undefined) {
+                for (let i = 0; i < elements.length; i++) {
+                    elementFunctions.show(elements[i]);
+                    elements[i].style.opacity = "0";
+                    window.requestAnimationFrame(function (timestamp) {
+                        animations.show(timestamp,timestamp,elements[i])
+                    });
                 }
-                if (elements !== undefined) {
-                    for (let i = 0; i < elements.length; i++) {
-                        elementFunctions.show(elements[i]);
-                        elements[i].style.opacity = "0";
-                        window.requestAnimationFrame(function (timestamp) {
-                            animations.show(timestamp,timestamp,elements[i])
-                        });
-                    }
-                }
+            }
+        },
+        updateQuiz(quizInfo) {
+            if ((quizInfo !== undefined) && (quizInfo === true)) {
+                quizAnswers.setAnswers(question.answers);
+                quizAnswers.resetAnswersStyle();
+                quizQuestion.setQuestionText(question.contents);
             }
         },
         show(timestamp, startTime, element) {
@@ -185,7 +178,7 @@ function init() {
             }
         },
     };
-    //Obsługuje pobieranie nicku gracza
+
     const playerNickName = {
         playerName: " ",
         quizNick: document.getElementById("quiz-nick"),
@@ -198,10 +191,12 @@ function init() {
                 if (this.playerName.length < 5) {
                     elementFunctions.show(this.playerNameWarning);
                 } else {
-                    let elements = [quizOptions.startButton];
-                    this.quizNick.style.opacity = "1";
-                    requestAnimationFrame(function (timestamp) {
-                        animations.hide(timestamp,timestamp,playerNickName.quizNick,elements);
+                    quizOptions.replayButton.addEventListener("click", quizOptions.clickReplay);
+                    let elements = quizAnswers.answerButtons;
+                    elements.push(quizOptions.startButton);
+                    //this.quizNick.style.opacity = "1";
+                    requestAnimationFrame( (timestamp) =>{
+                        animations.hide(timestamp,timestamp,this.quizNick,elements);
                     });
                 }
             });
@@ -212,49 +207,49 @@ function init() {
 
     //obsluguje przyciski odpowiedzi i wyswietlanie pytania
 
-    const quizAnswer = {
+    const quizQuestion = {
+        questionField: document.getElementById("question"),
+        setQuestionText (contents) {
+            this.questionField.innerText = contents;
+        },
+    };
+    const quizAnswers = {
         answerButtons: [document.getElementById("answerA"), document.getElementById("answerB"),
             document.getElementById("answerC"), document.getElementById("answerD")],
-        questionText: document.getElementById("question"),
 
-        //ustawia odpowiedzi na wylosowane pytanie
-        setAnswers: function (answers) {
+        setAnswers(answers) {
             for (let i = 0; i < 4; i++) {
-                this.answerButtons[i].innerText = String.fromCharCode(65+i) + answers[i];
+                this.answerButtons[i].innerText = String.fromCharCode(65+i) + ": " + answers[i];
             }
         },
 
-        //przywraca kolory do podstawowych
-        resetAnswersStyle: function () {
+        resetAnswersStyle() {
             for (let i = 0; i < 4; i++) {
                 this.answerButtons[i].style.removeProperty('background-color');
                 this.answerButtons[i].style.removeProperty('cursor');
             }
         },
 
-        // resstuje pytanie i odpowiedz do momentu przed startem
-        resetAnswersText: function () {
+        resetAnswersText() {
             for (let i = 0; i < 4; i++) {
-                this.answerButtons[i].innerText = String.fromCharCode(64+i)
+                this.answerButtons[i].innerText = String.fromCharCode(64+i) + ":"
             }
             },
 
-        //dodaje eventy pozwalajace na klikniecie przycisku
-        addAnswersListener: function () {
+        addAnswersListener() {
             for (let answerButton of this.answerButtons) {
                 answerButton.addEventListener("click", this.checkAnswer);
             }
         },
 
-        //usuówa eventy odpowiedzialne za klikniecie
-
-
         checkAnswer() {
             const answer = this.innerText[0];
-            quizAnswer.deactivateAnswers();
+            quizAnswers.deactivateAnswers();
             if (question.goodAnswer === answer) {
-                quizAnswer.showGoodAnswer(this);
+                quizAnswers.showGoodAnswer(this);
                 if (quizInfo.checkWin()) {
+                    quizController.getQuestions();
+                    quizInfo.winQuizInfo();
                     requestAnimationFrame(function (timestamp) {
                         animations.hide(timestamp, timestamp, quizOptions.nextButton, [quizOptions.replayButton])
                     });
@@ -262,8 +257,9 @@ function init() {
                     quizOptions.nextButton.addEventListener("click", quizOptions.clickNext);
                 }
             } else {
-                quizAnswer.showBadAnswer(this);
-                quizAnswer.showGoodAnswer(document.getElementById("answer" + question.goodAnswer));
+                quizController.getQuestions();
+                quizAnswers.showBadAnswer(this);
+                quizAnswers.showGoodAnswer(document.getElementById("answer" + question.goodAnswer));
                 requestAnimationFrame(function (timestamp) {
                     animations.hide(timestamp,timestamp,quizOptions.nextButton,[quizOptions.replayButton])
                 });
@@ -279,7 +275,7 @@ function init() {
             this.delAnswersListener();
         },
 
-        delAnswersListener: function () {
+        delAnswersListener() {
             for (let answerButton of this.answerButtons) {
                 answerButton.removeEventListener("click", this.checkAnswer);
             }
@@ -292,67 +288,6 @@ function init() {
         showBadAnswer(answerButton) {
             answerButton.style.backgroundColor = "#E6001B";
         },
-        //ustawia wylosowane pytanie
-        setQuestion: function (contents) {
-            this.questionText.innerText = contents;
-        },
-    };
-
-    const quizGame = {
-        //funkcje dodawane do eventu cliclk przyciskow odpowiedzi
-        checkAnswerA: function () {
-            quizGame.checkAnswer("answerA", "A")
-        },
-        checkAnswerB: function () {
-            quizGame.checkAnswer("answerB", "B")
-        },
-        checkAnswerC: function () {
-            quizGame.checkAnswer("answerC", "C")
-        },
-        checkAnswerD: function () {
-            quizGame.checkAnswer("answerD", "D")
-        },
-        //sprawdza czy odpowiedz była prawidlowa
-        checkAnswer: function (buttonId, answer) {
-            let correctAnswer = question.getCurrentAnswer();
-            //jesli prawidlowa wyswietla ja na zielono i pozwala na przejscie do dalszego etapu
-            if (correctAnswer === answer) {
-                quizGame.deactivateAnswer([quizAnswer.answerButtonA, quizAnswer.answerButtonB,
-                    quizAnswer.answerButtonC, quizAnswer.answerButtonD]);
-                quizGame.showGoodAnswer(buttonId);
-                if (quizInfo.checkWin()) {
-                    requestAnimationFrame(function (timestamp) {
-                        animations.hide(timestamp,timestamp,quizOptions.nextButton, [quizOptions.replayButton])
-                    });
-                }            //jesli nie prawidłowa wyswietla ja na czerowona a prawidłowa na zielono i pozwala na rozpoczecie od nowa
-
-            } else {
-                quizGame.deactivateAnswer([quizAnswer.answerButtonA, quizAnswer.answerButtonB,
-                    quizAnswer.answerButtonC, quizAnswer.answerButtonD]);
-                correctAnswer ="answer"+ correctAnswer;
-                quizGame.showBadAnswer(buttonId);
-                quizGame.showGoodAnswer(correctAnswer);
-                requestAnimationFrame(function (timestamp) {
-                    animations.hide(timestamp,timestamp,quizOptions.nextButton,[quizOptions.replayButton])
-                });
-                quizInfo.loseQuizInfo();
-            }//usuniecie eventow z przyciskow odpowiedzi
-            quizAnswer.delAnswersListener();
-            quizOptions.nextButton.addEventListener("click", quizOptions.clickNext);
-        },//zmienia kolor poprawnej odpowiedzi
-        showGoodAnswer: function (answerId) {
-            document.getElementById(answerId).style.backgroundColor = "#00FF37";
-        },//zmienia kolor niepoprawnej odpowiedzi
-        showBadAnswer: function (answerId) {
-            document.getElementById(answerId).style.backgroundColor = "#E6001B";
-        },
-        deactivateAnswer: function (answers){
-            for (let i = 0; i < answers.length; i++) {
-                answers[i].style.backgroundColor = "#FFF";
-                answers[i].style.cursor = "default";
-            }
-        },
-
     };
 
     //obsluguje informacje o quize
@@ -365,20 +300,20 @@ function init() {
         questPointsInfo: document.getElementById("quest-points"),
 
         //ustawia wartosci informacyjne
-        setInfo: function () {
+        setInfo() {
             this.quizTitle.innerText = "Etap " + this.stage + " z 10";
             this.playerPointsInfo.innerText = "Punkty: " + this.playerPoints;
             this.questPointsInfo.innerText = "Punkty do zdobycia: " + this.questPoints;
         },
         //aktualizuje etap, punkty
-        updateInfoValue: function () {
+        updateInfoValue() {
             this.stage = this.stage + 1;
             this.playerPoints = this.playerPoints + this.questPoints;
             this.questPoints = this.questPoints + 5;
         },
 
         //resetuje do ustawien przed rozpoczeciem quizu
-        resetInfo: function () {
+        resetInfo() {
             this.stage = 1;
             this.playerPoints = 0;
             this.questPoints =10;
@@ -388,99 +323,42 @@ function init() {
         },
 
         //obluguje dane oraz aktualizuje strone w razie porazki w quizie
-        loseQuizInfo: function () {
+        loseQuizInfo() {
             this.quizTitle.innerText = "Porażka";
             this.playerPointsInfo.innerText = "Zdobyte punkty " + this.playerPoints;
             this.questPointsInfo.innerText = " ";
             playerInfo.nickName =  playerNickName.playerName;
             playerInfo.points = this.playerPoints;
-            getService.addPlayer();
+            quizController.addPlayer();
 
         },
 
         //obluguje dane oraz aktualizuje strone w razie wygranej w quizie
 
-        winQuizInfo: function () {
+        winQuizInfo() {
             this.quizTitle.innerText = "Wygrana";
             this.playerPointsInfo.innerText = "Zdobyte punkty " + this.playerPoints;
             this.questPointsInfo.innerText = " ";
             playerInfo.nickName =  playerNickName.playerName;
             playerInfo.points = this.playerPoints;
-            getService.addPlayer();
+            quizController.addPlayer();
         },
 
         //sprawdza czy ukonczylismy wszystkie etapy
-        checkWin: function () {
-            if (this.stage === 10) {
-                quizInfo.winQuizInfo();
-                return true;
-            } else {
-                return false;
-            }
-
+        checkWin() {
+            return this.stage === 10;
         }
 
     };
 
-
-
-
-
-
-
-
-//pobierane przycisk odpowiadajace za rozgrywke w quizie
-
-//dodanie eventu obslugujacego przyczpione menu
     window.addEventListener("scroll", function () {
         fixNav();
     });
-//pobranie przycisku menu wyswietlanego na malych ekranach
-    var openMenu = document.getElementById("nav-menu-mobile");
-    //dodanie eventu obslugujacego klikniecie i wywolujacego funkcje pozwlajaca na wysowanie i zasowanie manu
+    
+    const openMenu = document.getElementById("nav-menu-mobile");
+
     openMenu.addEventListener("click", function () {
         popupMenu();
     });
 
 }
-/*
-
-//zamiast quizAnswer
-class Answer{
-
-    constructor(answer,buttonId) {
-        this.answer = answer;
-        this.answerButton = document.getElementById(buttonId);
-    }
-
-    setText(text) {
-        this.answerButton.innerText = text;
-    }
-
-    resetStyle() {
-        this.answerButton.style.removeProperty('background-color');
-        this.answerButton.style.removeProperty('cursor');
-    }
-
-    resetText(text) {
-        this.answerButton.innerText = text;
-    }
-
-    addListener(functionToAdd) {
-        this.answerButton.addEventListener('click', functionToAdd);
-    }
-
-    delListener(functionToDel) {
-        this.answerButton.addEventListener('click', functionToDel);
-    }
-
-    getAnswer() {
-        return this.answer;
-    }
-}
-
-//zamiast quizGame
-
-class Quiz{
-    selectedAnswer
-}*/
