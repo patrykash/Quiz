@@ -198,6 +198,15 @@ function init() {
                     requestAnimationFrame( (timestamp) =>{
                         animations.hide(timestamp,timestamp,this.quizNick,elements);
                     });
+                    /*requestAnimationFrame( (timestamp) => {
+                        animations.hide(timestamp, timestamp, document.getElementById("player-name-warning"));
+                        animations.hide(timestamp, timestamp, document.getElementById("player-name-label"));
+                        animations.hide(timestamp, timestamp, document.getElementById("player-name-text"));
+                        animations.hide(timestamp, timestamp, this.playerNameInput);
+                        animations.hide(timestamp, timestamp, this.playerNameInput);
+                        animations.hide(timestamp, timestamp, this.playerNameWarning);
+                        animations.hide(timestamp, timestamp, this.saveButton, elements);
+                    });*/
                 }
             });
         },
