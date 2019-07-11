@@ -133,6 +133,7 @@ h2 {
     flex-direction: column;
     justify-content: center;
     align-items: center ;
+    height: 250px;
     /*
     margin-top: 50px;
     */
@@ -143,12 +144,25 @@ h2 {
         justify-content: space-evenly;
         flex-wrap: wrap;
         margin-top: 50px;
+        /*
+        height: 450px;
+        */
+
+    }
+    #quiz-nick {
+        height: 430px;
+    }
+    #question {
+        min-height: 48px;
     }
     .answer {
         height: 70px;
         padding-top: 20px;
         margin-top: 80px;
+        /*
         width: 300px;
+        */
+        width: 40%;
         padding-left: 10px;
     }
     .quiz-button {
