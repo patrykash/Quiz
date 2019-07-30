@@ -1,5 +1,15 @@
 window.onload = init;
 function init() {
+    window.addEventListener("scroll", function () {
+        fixNav();
+    });
+
+    const openMenu = document.getElementById("nav-menu-mobile");
+    openMenu.addEventListener("click", function () {
+        popupMenu();
+    });
+    getPlayers();
+
 //pobiera liste graczy z bazy danych
     function getPlayers() {
         let getQuestion = new XMLHttpRequest();
@@ -15,25 +25,18 @@ function init() {
                 let tab = document.getElementById("tabStart");
                 let element;
                 //tworzenie nowych elementow tabeli uzupelnianie danymi z bazy danych i dodawnie do strony
-                for (let i = 0; i <10 ; i++) {
-                    console.log(i);
-                    element = document.createElement("tr");
-                    element.innerHTML="<td>" + (i + 1) + "</td>"
-                    +"<td>" + responseObject[i].nickName + "</td>" +
-                        "<td>" + responseObject[i].points + "</td>"
-                    tab.appendChild(element);
+                for (let j = 0; j < 1; j++) {
+                    for (let i = 0; i <10 ; i++) {
+                        console.log(i);
+                        element = document.createElement("tr");
+                        element.innerHTML="<td>" + (i + 1) + "</td>"
+                            +"<td>" + responseObject[i].nickName + "</td>" +
+                            "<td>" + responseObject[i].points + "</td>";
+                        tab.appendChild(element);
+                    }
                 }
+
             }
         };
     }
-    getPlayers();
-    window.addEventListener("scroll", function () {
-        fixNav();
-    });
-
-    let openMenu = document.getElementById("nav-menu-mobile");
-    openMenu.addEventListener("click", function () {
-        popupMenu();
-    });
-
 }

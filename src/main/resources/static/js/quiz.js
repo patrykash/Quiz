@@ -1,6 +1,14 @@
 'use strict';
 window.onload = init;
 function init() {
+    window.addEventListener("scroll", function () {
+        fixNav();
+    });
+
+    const openMenu = document.getElementById("nav-menu-mobile");
+    openMenu.addEventListener("click", function () {
+        popupMenu();
+    });
     //zajmuje się komunikacją z serwerem
     const quizController = {
         //wysyla zapytanie o pobranie listy pytan
@@ -84,8 +92,8 @@ function init() {
 
         clickNext() {
             question.randomQuestion();
-            quizInfo.setInfo();
             quizInfo.updateInfoValue();
+            quizInfo.setInfo();
             let elements = [quizAnswers.answerButtons[0], quizAnswers.answerButtons[1],
                 quizAnswers.answerButtons[2], quizAnswers.answerButtons[3], quizQuestion.questionField];
             requestAnimationFrame(function (timestamp) {
@@ -360,14 +368,6 @@ function init() {
 
     };
 
-    window.addEventListener("scroll", function () {
-        fixNav();
-    });
-    
-    const openMenu = document.getElementById("nav-menu-mobile");
 
-    openMenu.addEventListener("click", function () {
-        popupMenu();
-    });
 
 }

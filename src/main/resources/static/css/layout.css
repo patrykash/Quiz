@@ -9,11 +9,12 @@ body {
 header {
     margin-bottom: 40px;
 }
-.banner {
+#banner {
     background-image: url("../img/book-4126482_1280.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
+    margin-top: 70px;
 }
 
 footer {
@@ -64,9 +65,10 @@ h1 {
 .fix-nav {
     position: fixed !important;
     left: 0;
-    top: 0;
+    top: 70px;
     z-index: 10;
 }
+
 #fixed-nav {
     width: 100%;
 }
@@ -84,7 +86,6 @@ h1 {
 
 .nav-style {
     width: 100%;
-
     background-color: white;
 }
 
@@ -146,7 +147,7 @@ h1 {
     body {
         font-size: 24px;
     }
-    .banner {
+    #banner {
         min-height: 300px;
     }
     .container {
@@ -178,16 +179,15 @@ h1 {
     body {
         font-size: 24px;
     }
-    .banner {
+    #banner {
         min-height: 250px;
     }
     .container {
-        width: 750px;
+        width: 90%;
         flex-direction: column;
         justify-content: center;
         align-items: center;
     }
-
 
     #fixed-nav nav>ol {
         justify-content: center;
@@ -213,7 +213,7 @@ h1 {
     body {
         font-size: 20px;
     }
-    .banner {
+    #banner {
         height: 200px;
     }
     .container {
@@ -246,7 +246,7 @@ h1 {
     body {
         font-size: 20px;
     }
-    .banner {
+    #banner {
         height: 150px;
     }
     .container {

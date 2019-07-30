@@ -13,9 +13,9 @@ h2 {
 }*/
 
 table {
-    border-collapse: separate;
+    /*border-collapse: separate;
     border: 2px solid blue;
-    border-radius: 10px;
+    border-radius: 10px;*/
 
 }
 
@@ -35,4 +35,12 @@ table {
 .rank th {
     padding: 10px 10px 10px 10px;
 
+}
+
+th, td {
+    border-top: 2px solid #093580;
+}
+
+tbody > tr:nth-child(odd) {
+    background-color: #f2f2f2;
 }

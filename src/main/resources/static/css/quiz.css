@@ -159,9 +159,6 @@ h2 {
         height: 70px;
         padding-top: 20px;
         margin-top: 80px;
-        /*
-        width: 300px;
-        */
         width: 40%;
         padding-left: 10px;
     }
@@ -196,12 +193,12 @@ h2 {
         height: 70px;
         padding-top: 20px;
         margin-top: 80px;
-        width: 300px;
+        width: 45%;
         padding-left: 10px;
     }
     .quiz-button {
         height: 50px;
-        width: 25%;
+        width: 30%;
         margin-top: 80px;
     }
     .cont-text {
@@ -238,7 +235,7 @@ h2 {
         margin-top: 80px;
     }
     .cont-text {
-        width: 100%;
+        width: 50%;
     }
 }
 
