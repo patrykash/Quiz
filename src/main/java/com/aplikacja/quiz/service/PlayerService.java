@@ -19,10 +19,11 @@ public class PlayerService {
     public void addPlayer(Player player) {
         List<Player> playerList = getPlayers();
         int playersNumber = playerList.size();
-        Player lastPlayer = playerList.get(playersNumber - 1);
+        System.out.println(playersNumber);
+        //Player lastPlayer = playerList.get(playersNumber - 1);
         if (playersNumber < 10) {
             playerRepository.save(player);
-        } else if (lastPlayer.getPoints() < player.getPoints()) {
+        } else if (playerList.get(playersNumber - 1).getPoints() < player.getPoints()) {
             playerRepository.save(player);
         }
     }
