@@ -33,16 +33,13 @@ function fixNav() {
     const fixedNav = document.getElementById("fixed-nav");
     let yScroll = window.scrollY;
 
+
     if (yScroll > 70) {
-        setTop(fixedNav, 0);
+        fixedNav.classList.add("fix-nav");
     } else
     {
-        setTop(fixedNav, 70 - yScroll);
+        fixedNav.classList.remove("fix-nav");
     }
-}
-
-function setTop(element, position) {
-    element.style.top = position + "px";
 
 }
 
@@ -51,6 +48,7 @@ let slide = true;
 //odpowiada za wysowanie i zasowanie menu
 function popupMenu() {
     const menuElements = document.getElementsByClassName("nav-option");
+    let yScroll = window.scrollY;
 
     console.log("dziala");
     console.log(slide);

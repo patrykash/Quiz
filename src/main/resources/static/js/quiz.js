@@ -343,7 +343,9 @@ function init() {
         loseQuizInfo() {
             this.quizTitle.innerText = "Porażka";
             this.playerPointsInfo.innerText = "Zdobyte punkty " + this.playerPoints;
+/*
             this.questPointsInfo.innerText = " ";
+*/
             playerInfo.nickName =  playerNickName.playerName;
             playerInfo.points = this.playerPoints;
             quizController.addPlayer();
