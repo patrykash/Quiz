@@ -35,3 +35,10 @@ th, td {
 tbody > tr:nth-child(odd) {
     background-color: #f2f2f2;
 }
+
+@media (max-width: 575px) {
+
+    .rank {
+        font-size:  1.125em;
+    }
+}

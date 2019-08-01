@@ -86,17 +86,23 @@
         justify-content: space-around;
         width: 100%;
         align-items: center;
+        padding: 10px 20px 10px 20px;
     }
 
     .game-img {
-        width: 100%;
+        width: 50%;
         height: auto;
         order: -1;
-
+        margin: 20px 0 20px 0;
     }
+
     .information {
-        width: 100%;
+        width: 80%;
         order: 1;
+    }
+
+    .information > ol {
+        font-size:  1.125em;
     }
 
 }
@@ -110,20 +116,23 @@
         width: 100%;
         align-items: center;
         padding: 10px 20px 10px 20px;
-
     }
 
     .game-img {
-        width: 100%;
+        width: 70%;
         height: auto;
         order: -1;
         margin: 20px 0 20px 0;
 
     }
+
     .information {
         width: 100%;
         order: 1;
+    }
 
+    .information > ol {
+        font-size:  1.125em;
     }
 
 }

@@ -3,7 +3,7 @@
 }
 body {
     font-size: 16px;
-    line-height: 1.2em;
+    line-height: 1.25em;
     font-family: 'Lato', sans-serif;
     background-color: #ffff;
 }
@@ -39,9 +39,9 @@ footer {
     min-height: 70px;
     margin-top: 40px;
 }
-footer > div {
+/*footer > div {
     margin: 10px 0 10px 0;
-}
+}*/
 
 #banner {
     background-image: url("../img/book-4126482_1280.jpg");
@@ -243,7 +243,7 @@ footer > div {
         font-size: 1.625em;
     }
     p {
-        font-size:  1.125em;
+        font-size:  1.125rem;
     }
 
     #banner {
