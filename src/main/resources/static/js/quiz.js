@@ -76,8 +76,12 @@ function init() {
         startButton: document.getElementById("start"),
         replayButton: document.getElementById("replay"),
         nextButton: document.getElementById("next"),
+        endButton: document.getElementById("end"),
 
         clickStart() {
+            requestAnimationFrame(function (starTime) {
+                quizTime.updateClock(starTime, starTime);
+            });
             question.randomQuestion();
             //quizAnswers.setAnswers(question.answers);
             quizAnswers.addAnswersListener();
@@ -86,11 +90,17 @@ function init() {
             let elements = [quizOptions.nextButton,quizQuestion.questionField, quizAnswers.answerButtons[0], quizAnswers.answerButtons[1],
                 quizAnswers.answerButtons[2], quizAnswers.answerButtons[3]];
             requestAnimationFrame(function (timestamp) {
+                animations.hide(timestamp,timestamp, quizInfo.quizTimeRule)
+            });
+            requestAnimationFrame(function (timestamp) {
                 animations.hide(timestamp,timestamp,quizOptions.startButton, elements, true);
             });
         },
 
         clickNext() {
+            requestAnimationFrame(function (starTime) {
+                quizTime.updateClock(starTime, starTime);
+            });
             question.randomQuestion();
             quizInfo.updateInfoValue();
             quizInfo.setInfo();
@@ -161,6 +171,7 @@ function init() {
         showElements(elements) {
             if (elements !== undefined) {
                 for (let i = 0; i < elements.length; i++) {
+                    console.log("Dziala");
                     elementFunctions.show(elements[i]);
                     elements[i].style.opacity = "0";
                     window.requestAnimationFrame(function (timestamp) {
@@ -200,11 +211,11 @@ function init() {
                     elementFunctions.show(this.playerNameWarning);
                 } else {
                     quizOptions.replayButton.addEventListener("click", quizOptions.clickReplay);
-                    let elements = quizAnswers.answerButtons;
-                    elements.push(quizOptions.startButton);
+                    /*let elements = quizAnswers.answerButtons;
+                    elements.push(quizOptions.startButton);*/
                     //this.quizNick.style.opacity = "1";
                     requestAnimationFrame( (timestamp) =>{
-                        animations.hide(timestamp,timestamp,this.quizNick,elements);
+                        animations.hide(timestamp,timestamp,this.quizNick,[quizOptions.startButton,quizInfo.quizTimeRule]);
                     });
                     /*requestAnimationFrame( (timestamp) => {
                         animations.hide(timestamp, timestamp, document.getElementById("player-name-warning"));
@@ -260,6 +271,7 @@ function init() {
         },
 
         checkAnswer() {
+            cancelAnimationFrame(quizTime.currentAnimation);
             const answer = this.innerText[0];
             quizAnswers.deactivateAnswers();
             if (question.goodAnswer === answer) {
@@ -315,6 +327,7 @@ function init() {
         quizTitle: document.getElementById("quiz-title"),
         playerPointsInfo: document.getElementById("player-points"),
         questPointsInfo: document.getElementById("quest-points"),
+        quizTimeRule: document.getElementById("quiz-time-rule"),
 
         //ustawia wartosci informacyjne
         setInfo() {
@@ -370,6 +383,40 @@ function init() {
 
     };
 
+    const quizTime ={
+        clock: document.getElementById("quiz-time"),
+        currentAnimation: 0,
+
+        updateClock(starTime,nowTime) {
+            const questionTime = 60000;
+            let currentTime = nowTime - starTime;
+            currentTime = questionTime - currentTime;
+
+            this.setClockTime(currentTime);
+
+            if (Math.floor((currentTime/1000)) === 0) {
+                cancelAnimationFrame(this.currentAnimation);
+                quizController.getQuestions();
+                quizAnswers.showGoodAnswer(document.getElementById("answer" + question.goodAnswer));
+                requestAnimationFrame(function (timestamp) {
+                    animations.hide(timestamp,timestamp,quizOptions.nextButton,[quizOptions.replayButton])
+                });
+                quizInfo.loseQuizInfo();
+            } else {
+                this.currentAnimation =requestAnimationFrame( (timestamp) =>{
+                    this.updateClock(starTime,timestamp);
+                });
+            }
+        },
+
+        setClockTime(currentTime) {
+            let clockS = Math.floor((currentTime / 1000)) % 60;
+            let clockM = Math.floor((currentTime / 60000)) % 60;
+
+            this.clock.innerText = "0" + clockM + " : " + clockS;
+        }
+
+    }
 
 
 }

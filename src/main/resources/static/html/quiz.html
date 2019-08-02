@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Aplikacja Edukacyjna Quiz</title>
-    <link rel="stylesheet" href="../css/normalize.css">
     <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/normalize.css">
     <link rel="stylesheet" href="../fontello-65bef979/css/fontello.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Oswald&amp;subset=latin-ext" rel="stylesheet">
+    <link rel="stylesheet" href="../css/layout.css">
     <link rel="stylesheet" href="../css/quiz.css">
     <script src="../js/menu.js"></script>
     <script src="../js/quiz.js"></script>
@@ -41,13 +41,13 @@
     <div class="container">
         <div class="quiz-info">
             <h2 id="quiz-title">Rozpocznij quiz.</h2>
+            <p id="quiz-time" class="cont-text">Czas: 00:00</p>
             <p id="player-points" class="cont-text">
                     Punkty: 0
             </p>
             <p id="quest-points" class="cont-text">
                     Punkty do  zdobycia: 0
             </p>
-            <p id="quiz-time">Czas: 00:00</p>
             <p id="question" class="cont-text"></p>
 
         </div>
@@ -60,6 +60,11 @@
             <p id="player-name-warning">Nick musi składać się z przynajmniej 5 znaków!</p>
             <button id="save-name" class="quiz-button">Zapisz</button>
 
+        </div>
+        <div id="quiz-time-rule" class="quiz-info">
+            <p style="font-weight: bold" class="cont-text">Pamiętaj!!! </p>
+            <p class="cont-text">Czas odpowiedzi na każdę pytanie jest ograniczony i wynosi 1 minutę. Jeśli nie uda ci się odpowiedzieć
+             na w tym czasie, quiz zakończy się porażką.</p>
         </div>
         <div id="quiz-main">
             <div id="answerA" class="answer">
@@ -77,6 +82,8 @@
             <button id="start" class="quiz-button"> START</button>
             <button id="next" class="quiz-button">Następny etap</button>
             <button id="replay" class="quiz-button">Spróbuj ponownie</button>
+            <button id="end" class="quiz-button">Zakończ</button>
+
 
         </div>
 

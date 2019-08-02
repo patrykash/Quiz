@@ -54,6 +54,10 @@
         width: 45%;
     }
 
+    .information > ol {
+        font-size:  1.313em;
+    }
+
 
 }
 
@@ -73,6 +77,10 @@
     }
     .information {
         width: 50%;
+    }
+
+    .information > ol {
+        font-size:  1.250em;
     }
 
 

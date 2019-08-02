@@ -4,7 +4,14 @@
 #quiz-main {
     display: flex;
 }
-
+#quiz-time-rule {
+    display: none;
+}
+#quiz-time-rule p{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
 /*#quiz-nick {
     min-height: 400px;
 }*/
@@ -58,7 +65,7 @@
     margin: 30px 0 30px 0;
 }
 #quiz-time {
-    display: none;
+    display: block;
     font-weight: bold;
     width: 100%;
     text-align: center;
@@ -86,6 +93,10 @@
 }
 
 #start {
+    display: none;
+}
+
+#end {
     display: none;
 }
 /*
@@ -136,9 +147,7 @@
         justify-content: space-evenly;
         flex-wrap: wrap;
         margin-top: 50px;
-        /*
-        height: 450px;
-        */
+        font-size:  1.313em;
 
     }
     #quiz-nick {
@@ -158,9 +167,12 @@
         height: 50px;
         width: 25%;
         margin-top: 80px;
+        font-size:  1.313rem;
+
     }
     .cont-text {
         width: 50%;
+        font-size:  1.313rem;
     }
 }
 
@@ -180,6 +192,7 @@
         justify-content: space-evenly;
         flex-wrap: wrap;
         margin-top: 50px;
+        font-size:  1.250em;
     }
     .answer {
         height: 70px;
@@ -192,9 +205,12 @@
         height: 50px;
         width: 30%;
         margin-top: 80px;
+        font-size:  1.250rem;
+
     }
     .cont-text {
         width: 50%;
+        font-size:  1.250rem;
     }
 }
 
@@ -213,6 +229,7 @@
         justify-content: space-evenly;
         flex-wrap: wrap;
         margin-top: 50px;
+        font-size:  1.125em
     }
     .answer {
         height: 70px;
@@ -220,6 +237,8 @@
         padding-top: 20px;
         margin-top: 40px;
         padding-left: 10px;
+        font-size:  1.125rem
+
     }
     .quiz-button {
         height: 50px;
@@ -228,6 +247,7 @@
     }
     .cont-text {
         width: 50%;
+        font-size:  1.125rem
     }
 }
 
@@ -246,6 +266,7 @@
         justify-content: space-evenly;
         flex-wrap: wrap;
         margin-top: 10px;
+        font-size:  1.125rem;
     }
     .answer {
         height: 50px;
@@ -262,11 +283,11 @@
         height: 50px;
         width: 50%;
         margin-top: 30px;
+        font-size:  1.125rem;
     }
     .cont-text {
         width: 100%;
         font-size:  1.125rem;
-
     }
 }
 
