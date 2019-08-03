@@ -132,10 +132,14 @@ function init() {
                 animations.hide(timestamp, timestamp, elements[3]);
                 animations.hide(timestamp, timestamp, elements[4], elements, true);
             });
+        },
+        clickEnd() {
+            window.location.href = 'classification.html';
         }
     };
 
     quizOptions.startButton.addEventListener("click", quizOptions.clickStart);
+    quizOptions.endButton.addEventListener("click", quizOptions.clickEnd);
     const elementFunctions = {
         hide (element) {
             element.style.display = "none";
@@ -280,7 +284,7 @@ function init() {
                     quizController.getQuestions();
                     quizInfo.winQuizInfo();
                     requestAnimationFrame(function (timestamp) {
-                        animations.hide(timestamp, timestamp, quizOptions.nextButton, [quizOptions.replayButton])
+                        animations.hide(timestamp, timestamp, quizOptions.nextButton, [quizOptions.endButton])
                     });
                 } else {
                     quizOptions.nextButton.addEventListener("click", quizOptions.clickNext);
@@ -378,7 +382,7 @@ function init() {
 
         //sprawdza czy ukonczylismy wszystkie etapy
         checkWin() {
-            return this.stage === 10;
+            return this.stage === 3;
         }
 
     };

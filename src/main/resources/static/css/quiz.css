@@ -159,14 +159,14 @@
     .answer {
         height: 70px;
         padding-top: 20px;
-        margin-top: 80px;
+        margin-top: 40px;
         width: 40%;
         padding-left: 10px;
     }
     .quiz-button {
         height: 50px;
         width: 25%;
-        margin-top: 80px;
+        margin-top: 40px;
         font-size:  1.313rem;
 
     }
