@@ -382,7 +382,7 @@ function init() {
 
         //sprawdza czy ukonczylismy wszystkie etapy
         checkWin() {
-            return this.stage === 3;
+            return this.stage === 10;
         }
 
     };
