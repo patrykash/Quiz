@@ -14,7 +14,7 @@ function init() {
         //wysyla zapytanie o pobranie listy pytan
         getQuestions () {
             let getQuestion = new XMLHttpRequest();
-            getQuestion.open('GET', '/questionAndAnswer/get', true);
+            getQuestion.open('GET', '/question/get', true);
             getQuestion.send(null);
              getQuestion.onload = function () {
                 let responseObject;
@@ -57,7 +57,7 @@ function init() {
         },
 
         setQuestionText(drawnQuestion) {
-            this.contents = drawnQuestion.question;
+            this.contents = drawnQuestion.content;
             this.answers = [drawnQuestion.answerA, drawnQuestion.answerB, drawnQuestion.answerC, drawnQuestion.answerD];
             this.goodAnswer = drawnQuestion.goodAnswer;
         },
