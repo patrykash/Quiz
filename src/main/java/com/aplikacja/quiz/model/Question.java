@@ -36,7 +36,7 @@ public class QuestionAndAnswer {
     }
 
     public QuestionAndAnswer(String question, String answerA, String answerB, String answerC, String answerD,
-                             String goodAnswer, String category) {
+                             String goodAnswer) {
         this.question = question;
         this.answerA = answerA;
         this.answerB = answerB;
