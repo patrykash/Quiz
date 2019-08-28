@@ -23,16 +23,16 @@ function init() {
 
                 responseObject = JSON.parse(getQuestion.responseText);
                 let tab = document.getElementById("tabStart");
-                let element;
+                let tabElement;
                 //tworzenie nowych elementow tabeli uzupelnianie danymi z bazy danych i dodawnie do strony
                 for (let j = 0; j < 1; j++) {
                     for (let i = 0; i <10 ; i++) {
                         console.log(i);
-                        element = document.createElement("tr");
-                        element.innerHTML="<td>" + (i + 1) + "</td>"
+                        tabElement = document.createElement("tr");
+                        tabElement.innerHTML="<td>" + (i + 1) + "</td>"
                             +"<td>" + responseObject[i].nickName + "</td>" +
                             "<td>" + responseObject[i].points + "</td>";
-                        tab.appendChild(element);
+                        tab.appendChild(tabElement);
                     }
                 }
 

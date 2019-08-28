@@ -1,14 +1,14 @@
 package com.aplikacja.quiz.service;
 
 import com.aplikacja.quiz.model.Question;
-import com.aplikacja.quiz.repository.QuestionAndAnswerRepository;
+import com.aplikacja.quiz.repository.QuestionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class QuestionAndAnswerService {
+public class QuestionService {
 
     private final static int QUESTION = 0;
 
@@ -22,21 +22,7 @@ public class QuestionAndAnswerService {
 
     private final static int CORRECT_ANSWER = 5;
 
-    private QuestionAndAnswerRepository questionAndAnswerRepository;
-
-    public QuestionAndAnswerService(QuestionAndAnswerRepository questionAndAnswerRepository) {
-        this.questionAndAnswerRepository = questionAndAnswerRepository;
-    }
-
-    public List<Question> addAll(List<Question> questions) {
-        return questionAndAnswerRepository.saveAll(questions);
-    }
-
-    public List<Question>getQuestions() {
-        return questionAndAnswerRepository.findAll();
-    }
-
-    public List<Question> create(List<String[]> data) {
+    public List<Question> createQuestions(List<String[]> data) {
         List<Question> questions = new ArrayList<>();
         for (String[] questionAndAnswerData : data) {
             Question question = new Question(questionAndAnswerData[QUESTION],

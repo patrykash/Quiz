@@ -2,6 +2,7 @@ package com.aplikacja.quiz.service;
 
 import com.aplikacja.quiz.model.Player;
 import com.aplikacja.quiz.repository.PlayerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -12,23 +13,29 @@ public class PlayerService {
 
     private PlayerRepository playerRepository;
 
-    public PlayerService(PlayerRepository playerRepository) {
+    @Autowired
+    PlayerService(PlayerRepository playerRepository) {
         this.playerRepository = playerRepository;
     }
 
-    public void addPlayer(Player player) {
-        List<Player> playerList = getPlayers();
-        int playersNumber = playerList.size();
-        System.out.println(playersNumber);
-        //Player lastPlayer = playerList.get(playersNumber - 1);
-        if (playersNumber < 10) {
+    public String addPlayer(Player player) {
+        if (canAddPlayer(player)) {
             playerRepository.save(player);
-        } else if (playerList.get(playersNumber - 1).getPoints() < player.getPoints()) {
-            playerRepository.save(player);
+            return "Player was added";
+        } else {
+            return "Player can't be added";
         }
     }
 
-    public List<Player> getPlayers() {
+     boolean canAddPlayer(Player player) {
+        List<Player> playerList = getSortDescPlayers();
+        int playersNumber = playerList.size();
+        if (playersNumber < 10) {
+           return true;
+        } else return playerList.get(playersNumber - 1).getPoints() < player.getPoints();
+    }
+
+    public List<Player> getSortDescPlayers() {
         return playerRepository.findAll(Sort.by(Sort.Direction.DESC, "points"));
     }
 

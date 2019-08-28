@@ -4,15 +4,14 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "questions")
-public class QuestionAndAnswer {
+public class Question {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
 
-    @Column(name = "question")
-    private String question;
+    private String content;
 
     @Column(name = "answer_a")
     private String answerA;
@@ -29,21 +28,17 @@ public class QuestionAndAnswer {
     @Column(name = "good_answer")
     private String goodAnswer;
 
-    @Column(name = "category")
-    private String category;
-
-    public QuestionAndAnswer() {
+    public Question() {
     }
 
-    public QuestionAndAnswer(String question, String answerA, String answerB, String answerC, String answerD,
-                             String goodAnswer) {
-        this.question = question;
+    public Question(String content, String answerA, String answerB, String answerC, String answerD,
+                    String goodAnswer) {
+        this.content = content;
         this.answerA = answerA;
         this.answerB = answerB;
         this.answerC = answerC;
         this.answerD = answerD;
         this.goodAnswer = goodAnswer;
-        this.category = category;
     }
 
     public long getId() {
@@ -54,12 +49,12 @@ public class QuestionAndAnswer {
         this.id = id;
     }
 
-    public String getQuestion() {
-        return question;
+    public String getContent() {
+        return content;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getAnswerA() {
@@ -102,11 +97,4 @@ public class QuestionAndAnswer {
         this.goodAnswer = goodAnswer;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
 }
