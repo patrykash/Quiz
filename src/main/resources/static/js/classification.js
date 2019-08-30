@@ -8,10 +8,8 @@ function init() {
     openMenu.addEventListener("click", function () {
         popupMenu();
     });
-    getPlayers();
 
-//pobiera liste graczy z bazy danych
-    function getPlayers() {
+    function getPlayers(callback) {
         let getQuestion = new XMLHttpRequest();
         getQuestion.open('GET', '/players/get', true);
         getQuestion.send(null);
@@ -19,24 +17,28 @@ function init() {
             let responseObject;
             console.log(getQuestion.status);
             if(getQuestion.status )
-            {            console.log(getQuestion.status);
-
+            {            console.log("GetQuestion :" + getQuestion.responseText);
                 responseObject = JSON.parse(getQuestion.responseText);
-                let tab = document.getElementById("tabStart");
-                let tabElement;
-                //tworzenie nowych elementow tabeli uzupelnianie danymi z bazy danych i dodawnie do strony
-                for (let j = 0; j < 1; j++) {
-                    for (let i = 0; i <10 ; i++) {
-                        console.log(i);
-                        tabElement = document.createElement("tr");
-                        tabElement.innerHTML="<td>" + (i + 1) + "</td>"
-                            +"<td>" + responseObject[i].nickName + "</td>" +
-                            "<td>" + responseObject[i].points + "</td>";
-                        tab.appendChild(tabElement);
-                    }
-                }
-
+                callback(responseObject);
             }
         };
     }
+
+    function createTable(players) {
+        let tab = document.getElementById("tabStart");
+        let tabElement;
+        console.log(players.length);
+            for (let i = 0; i <players.length ; i++) {
+                console.log(i);
+                tabElement = document.createElement("tr");
+                tabElement.innerHTML="<td>" + (i + 1) + "</td>"
+                    +"<td>" + players[i].nickName + "</td>" +
+                    "<td>" + players[i].points + "</td>";
+                tab.appendChild(tabElement);
+            }
+    }
+
+    getPlayers(createTable);
+
+
 }

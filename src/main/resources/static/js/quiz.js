@@ -9,9 +9,8 @@ function init() {
     openMenu.addEventListener("click", function () {
         popupMenu();
     });
-    //zajmuje się komunikacją z serwerem
-    const quizController = {
-        //wysyla zapytanie o pobranie listy pytan
+
+    const quizDataService = {
         getQuestions () {
             let getQuestion = new XMLHttpRequest();
             getQuestion.open('GET', '/question/get', true);
@@ -20,15 +19,12 @@ function init() {
                 let responseObject;
                 if(getQuestion.status )
                 {
-                    console.log("Komunikat http: " + getQuestion.status)
                     responseObject = JSON.parse(getQuestion.responseText);
                     question.setQuestions(responseObject);
-                    console.log(responseObject);
                 }
             };
         },
 
-        //przesyła dane uzytkownika na serwer
         addPlayer () {
             let addPlayer = new XMLHttpRequest();
             addPlayer.open('POST', '/players/save', true);
@@ -43,16 +39,13 @@ function init() {
         },
     };
 
-    quizController.getQuestions();
+    quizDataService.getQuestions();
 
-    //obsluguje pytania po pobraniu z serwera
     const question = {
 
         randomQuestion() {
             let questionNumber = Math.floor(Math.random() * this.questions.length);
             this.setQuestionText(this.questions[questionNumber]);
-            console.log(this.questions[questionNumber]);
-            console.log(this.contents);
             this.updateQuestions(questionNumber);
         },
 
@@ -83,10 +76,8 @@ function init() {
                 quizTime.updateClock(starTime, starTime);
             });
             question.randomQuestion();
-            //quizAnswers.setAnswers(question.answers);
             quizAnswers.addAnswersListener();
             quizInfo.setInfo();
-            //quizQuestion.setQuestionText(question.contents);
             let elements = [quizOptions.nextButton,quizQuestion.questionField, quizAnswers.answerButtons[0], quizAnswers.answerButtons[1],
                 quizAnswers.answerButtons[2], quizAnswers.answerButtons[3]];
             requestAnimationFrame(function (timestamp) {
@@ -175,7 +166,6 @@ function init() {
         showElements(elements) {
             if (elements !== undefined) {
                 for (let i = 0; i < elements.length; i++) {
-                    console.log("Dziala");
                     elementFunctions.show(elements[i]);
                     elements[i].style.opacity = "0";
                     window.requestAnimationFrame(function (timestamp) {
@@ -215,29 +205,15 @@ function init() {
                     elementFunctions.show(this.playerNameWarning);
                 } else {
                     quizOptions.replayButton.addEventListener("click", quizOptions.clickReplay);
-                    /*let elements = quizAnswers.answerButtons;
-                    elements.push(quizOptions.startButton);*/
-                    //this.quizNick.style.opacity = "1";
                     requestAnimationFrame( (timestamp) =>{
                         animations.hide(timestamp,timestamp,this.quizNick,[quizOptions.startButton,quizInfo.quizTimeRule]);
                     });
-                    /*requestAnimationFrame( (timestamp) => {
-                        animations.hide(timestamp, timestamp, document.getElementById("player-name-warning"));
-                        animations.hide(timestamp, timestamp, document.getElementById("player-name-label"));
-                        animations.hide(timestamp, timestamp, document.getElementById("player-name-text"));
-                        animations.hide(timestamp, timestamp, this.playerNameInput);
-                        animations.hide(timestamp, timestamp, this.playerNameInput);
-                        animations.hide(timestamp, timestamp, this.playerNameWarning);
-                        animations.hide(timestamp, timestamp, this.saveButton, elements);
-                    });*/
                 }
             });
         },
     };
 
     playerNickName.setPlayerName();
-
-    //obsluguje przyciski odpowiedzi i wyswietlanie pytania
 
     const quizQuestion = {
         questionField: document.getElementById("question"),
@@ -281,7 +257,7 @@ function init() {
             if (question.goodAnswer === answer) {
                 quizAnswers.showGoodAnswer(this);
                 if (quizInfo.checkWin()) {
-                    quizController.getQuestions();
+                    quizDataService.getQuestions();
                     quizInfo.winQuizInfo();
                     requestAnimationFrame(function (timestamp) {
                         animations.hide(timestamp, timestamp, quizOptions.nextButton, [quizOptions.endButton])
@@ -290,7 +266,7 @@ function init() {
                     quizOptions.nextButton.addEventListener("click", quizOptions.clickNext);
                 }
             } else {
-                quizController.getQuestions();
+                quizDataService.getQuestions();
                 quizAnswers.showBadAnswer(this);
                 quizAnswers.showGoodAnswer(document.getElementById("answer" + question.goodAnswer));
                 requestAnimationFrame(function (timestamp) {
@@ -323,7 +299,6 @@ function init() {
         },
     };
 
-    //obsluguje informacje o quize
     const quizInfo = {
         stage: 1,
         playerPoints: 0,
@@ -333,20 +308,18 @@ function init() {
         questPointsInfo: document.getElementById("quest-points"),
         quizTimeRule: document.getElementById("quiz-time-rule"),
 
-        //ustawia wartosci informacyjne
         setInfo() {
             this.quizTitle.innerText = "Etap " + this.stage + " z 10";
             this.playerPointsInfo.innerText = "Punkty: " + this.playerPoints;
             this.questPointsInfo.innerText = "Punkty do zdobycia: " + this.questPoints;
         },
-        //aktualizuje etap, punkty
         updateInfoValue() {
             this.stage = this.stage + 1;
             this.playerPoints = this.playerPoints + this.questPoints;
             this.questPoints = this.questPoints + 5;
         },
 
-        //resetuje do ustawien przed rozpoczeciem quizu
+
         resetInfo() {
             this.stage = 1;
             this.playerPoints = 0;
@@ -356,20 +329,15 @@ function init() {
             this.questPointsInfo.innerText = "Punkty do zdobycia: 10";
         },
 
-        //obluguje dane oraz aktualizuje strone w razie porazki w quizie
         loseQuizInfo() {
             this.quizTitle.innerText = "Porażka";
             this.playerPointsInfo.innerText = "Zdobyte punkty " + this.playerPoints;
-/*
-            this.questPointsInfo.innerText = " ";
-*/
             playerInfo.nickName =  playerNickName.playerName;
             playerInfo.points = this.playerPoints;
-            quizController.addPlayer();
+            quizDataService.addPlayer();
 
         },
 
-        //obluguje dane oraz aktualizuje strone w razie wygranej w quizie
 
         winQuizInfo() {
             this.quizTitle.innerText = "Wygrana";
@@ -377,10 +345,9 @@ function init() {
             this.questPointsInfo.innerText = " ";
             playerInfo.nickName =  playerNickName.playerName;
             playerInfo.points = this.playerPoints;
-            quizController.addPlayer();
+            quizDataService.addPlayer();
         },
 
-        //sprawdza czy ukonczylismy wszystkie etapy
         checkWin() {
             return this.stage === 10;
         }
@@ -400,7 +367,7 @@ function init() {
 
             if (Math.floor((currentTime/1000)) === 0) {
                 cancelAnimationFrame(this.currentAnimation);
-                quizController.getQuestions();
+                quizDataService.getQuestions();
                 quizAnswers.showGoodAnswer(document.getElementById("answer" + question.goodAnswer));
                 requestAnimationFrame(function (timestamp) {
                     animations.hide(timestamp,timestamp,quizOptions.nextButton,[quizOptions.replayButton])
