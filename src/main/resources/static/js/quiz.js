@@ -33,7 +33,7 @@ function init() {
             addPlayer.onload = function () {
                 if(addPlayer.status )
                 {
-                    console.log(JSON.parse(addPlayer.responseText)) ;
+                    console.log(addPlayer.responseText) ;
                 }
             };
         },
@@ -109,6 +109,9 @@ function init() {
         },
 
         clickReplay() {
+            requestAnimationFrame(function (starTime) {
+                quizTime.updateClock(starTime, starTime);
+            });
             question.randomQuestion();
             quizInfo.resetInfo();
             quizInfo.setInfo();
