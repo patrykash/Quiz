@@ -12,9 +12,7 @@
     margin-left: auto;
     margin-right: auto;
 }
-/*#quiz-nick {
-    min-height: 400px;
-}*/
+
 
 .cont-text {
     color: black;
@@ -73,9 +71,7 @@
 #player-name {
     border: 0;
     border-bottom: black solid 2px;
-    /*
-    box-shadow: 0 0 1rem rgba(0, 0, 0, .15) !important;
-    */
+
 }
 #player-name-warning {
     color: red;
@@ -99,36 +95,6 @@
 #end {
     display: none;
 }
-/*
-@media (min-width: 1100px) {
-    .quiz-info {
-        width: 100%;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center ;
-        margin-top: 50px;
-    }
-    .quiz-main {
-        width: 80%;
-        align-items: center;
-        justify-content: space-evenly;
-        flex-wrap: wrap;
-        margin-top: 50px;
-    }
-    .answer {
-        height: 70px;
-        padding-top: 20px;
-        margin-top: 80px;
-        width: 300px;
-        padding-left: 10px;
-    }
-    .quiz-button {
-        height: 50px;
-        width: 25%;
-        margin-top: 80px;
-    }
-}
-*/
 
 @media(min-width: 992px) {
     .quiz-info {
@@ -291,21 +257,3 @@
     }
 }
 
-
-/*!!!!!!!!!!!!!!!!!!!!!!Animacje!!!!!!!!!!!!!!!!!!!!!!!!!!1*/
-@keyframes fadeOut {
-    from {
-        opacity: 1;
-    }
-
-    to {
-        opacity: 0;
-    }
-}
-
-.fadeOut {
-    animation-fill-mode: forwards;
-    animation-duration: 1000ms;
-    animation-name: fadeOut;
-
-}

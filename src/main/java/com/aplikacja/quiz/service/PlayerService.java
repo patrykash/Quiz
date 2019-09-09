@@ -36,7 +36,7 @@ public class PlayerService {
            return true;
         } else return playerList.get(playersNumber - 1).getPoints() < player.getPoints();
     }
-    
+
 
     public List<Player> getSortDescPlayers() {
         return playerRepository.findAll(Sort.by(Sort.Direction.DESC, "points"));
