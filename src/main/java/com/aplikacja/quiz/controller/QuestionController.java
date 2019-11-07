@@ -15,24 +15,12 @@ import java.util.List;
 @RequestMapping("/question")
 public class QuestionController {
 
-    private QuestionService questionService;
-
-    private DataInFile dataInFile;
 
     private QuestionRepository questionRepository;
 
     @Autowired
-    public QuestionController(QuestionService questionService, DataInFile dataInFile, QuestionRepository questionRepository) {
-        this.questionService = questionService;
-        this.dataInFile = dataInFile;
+    public QuestionController(QuestionRepository questionRepository) {
         this.questionRepository = questionRepository;
-    }
-
-    @RequestMapping(value = "/add-all", method = RequestMethod.POST)
-    public List<Question>  addAll() {
-        List<String[]> dataList = dataInFile.getData("src\\main\\resources\\static\\Dane testowe.csv");
-        List<Question> questions = questionService.createQuestions(dataList);
-        return questionRepository.saveAll(questions);
     }
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)
