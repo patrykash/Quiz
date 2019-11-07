@@ -2,8 +2,6 @@ package com.aplikacja.quiz.controller;
 
 import com.aplikacja.quiz.model.Question;
 import com.aplikacja.quiz.repository.QuestionRepository;
-import com.aplikacja.quiz.service.DataInFile;
-import com.aplikacja.quiz.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
