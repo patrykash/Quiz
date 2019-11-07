@@ -15,7 +15,7 @@ mvn clean install
 ```
 java -jar target/quiz-0.0.1-SNAPSHOT.jar
 ```
-Type this in your web browser
+Type this address in your web browser
 ```
 http://localhost:8080
 ```
