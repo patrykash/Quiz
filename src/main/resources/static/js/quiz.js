@@ -201,17 +201,20 @@ function init() {
         playerNameInput: document.getElementById("player-name"),
         playerNameWarning: document.getElementById("player-name-warning"),
         saveButton : document.getElementById("save-name"),
+        regexp : /^[a-zA-Z0-9\-]+$/,
         setPlayerName () {
             this.saveButton.addEventListener("click",  ()  => {
                 this.playerName = this.playerNameInput.value;
-                if (this.playerName.length < 5) {
-                    elementFunctions.show(this.playerNameWarning);
-                } else {
+/*
+                if (this.playerName.length < 4 || (this.playerName.match(this.regexp) !== this.playerName)) {
+*/                if (this.playerName.length > 3 && this.regexp.test(this.playerName)) {
                     quizOptions.replayButton.addEventListener("click", quizOptions.clickReplay);
                     requestAnimationFrame( (timestamp) =>{
-                        animations.hide(timestamp,timestamp,this.quizNick,[quizOptions.startButton,quizInfo.quizTimeRule]);
+                     animations.hide(timestamp,timestamp,this.quizNick,[quizOptions.startButton,quizInfo.quizTimeRule]);
                     });
-                }
+                } else {
+                       elementFunctions.show(this.playerNameWarning);
+                 }
             });
         },
     };
